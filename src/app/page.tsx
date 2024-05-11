@@ -1,5 +1,16 @@
-import cn from "@/utils/cn";
+import type { Types } from "@/types";
 
-export default function Home() {
-  return <h1 className={cn("text-5xl font-medium")}>Hello world</h1>;
+import { getComments } from "@/lib/db/comments";
+import CommentsSection from "@/components/comments-section";
+
+export default async function Home() {
+  const comments = (await getComments()) as Types.Comment[];
+
+  return (
+    <main className="px-5 py-12">
+      <section className="max-w-3xl mx-auto">
+        <CommentsSection comments={comments} />
+      </section>
+    </main>
+  );
 }
