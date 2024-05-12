@@ -19,8 +19,8 @@ import { updateCommentScoreAction } from "@/actions";
 import { COMMENTS_CONTEXT } from "@/context/comments";
 
 function Comment({ comment }: Types.CommentProps) {
-  const { id, content, user, score, createdAt, replyTo, parentId, replies } =
-    comment;
+  const { id, content, user, score, replyTo, parentId, replies } = comment;
+  const createdAt = useMemo(() => timeDiff(comment.createdAt), [comment]);
   const isLoggedInUser = USER.id === user.id;
 
   const [state, setState] = useState<Types.CommentState>("default");
@@ -87,7 +87,7 @@ function Comment({ comment }: Types.CommentProps) {
               isLoggedInUser ? "col-[2/4]" : "col-[2/3]"
             )}
           >
-            {timeDiff(createdAt)}
+            {createdAt}
           </p>
         </div>
 
