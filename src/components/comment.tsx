@@ -1,7 +1,7 @@
 "use client";
 
 import type { Types } from "@/types";
-import { memo, useMemo, useState } from "react";
+import React, { memo, useMemo, useState } from "react";
 
 import Button from "@ui/button";
 import Avatar from "@ui/avatar";
@@ -17,6 +17,7 @@ import timeDiff from "@/utils/time-diff";
 import { USER } from "@/app.config";
 import { updateCommentScoreAction } from "@/actions";
 import { COMMENTS_CONTEXT } from "@/context/comments";
+import toggleCallbackWrapper from "@/utils/toggle-callback-wrapper";
 
 function Comment({ comment }: Types.CommentProps) {
   const { id, content, user, score, replyTo, parentId, replies } = comment;
@@ -135,7 +136,7 @@ function Comment({ comment }: Types.CommentProps) {
 
 const CommentReplies = memo(({ replies }: Types.CommentRepliesProps) => {
   return (
-    <div className="space-y-4 mt-5 md:ml-8 pl-5 sm:pl-6 md:pl-8 border-l-2 border-gray-300/70">
+    <div className="space-y-5 mt-4 md:ml-10 pl-5 sm:pl-6 md:pl-10 border-l-2 border-gray-200">
       {replies.map((reply) => (
         <Comment key={reply.id} comment={reply} />
       ))}
@@ -161,32 +162,37 @@ const CommentActionButtons = memo(
                 className="text-danger text-sm sm:text-base"
                 onClick={props.onDelete}
               >
-                <span>
-                  <DeleteIcon className="fill-danger text-[0.750rem] sm:text-sm" />
-                </span>
+                <DeleteIcon
+                  aria-hidden
+                  className="fill-danger text-[0.750rem] sm:text-sm"
+                />
                 <span>Delete</span>
               </Button>
             </ModalOpenButton>
             <Button
               variant="link"
-              onClick={props.onEdit}
               className="text-sm sm:text-base"
+              aria-pressed={false}
+              onClick={toggleCallbackWrapper(props.onEdit)}
             >
-              <span>
-                <EditIcon className="fill-primary text-[0.750rem] sm:text-sm" />
-              </span>
+              <EditIcon
+                aria-hidden
+                className="fill-primary text-[0.750rem] sm:text-sm"
+              />
               <span>Edit</span>
             </Button>
           </>
         ) : (
           <Button
             variant="link"
-            onClick={props.onReply}
             className="text-sm sm:text-base"
+            aria-pressed={false}
+            onClick={toggleCallbackWrapper(props.onReply)}
           >
-            <span>
-              <ReplyIcon className="fill-primary text-[0.750rem] sm:text-sm" />
-            </span>
+            <ReplyIcon
+              aria-hidden
+              className="fill-primary text-[0.750rem] sm:text-sm"
+            />
             <span>Reply</span>
           </Button>
         )}

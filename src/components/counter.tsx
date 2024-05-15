@@ -50,25 +50,40 @@ const Counter = memo(
     return (
       <div
         className={cn(
-          "text-primary bg-slate-100 rounded-xl px-2.5 sm:px-3 py-1.5 md:py-3 flex flex-row md:flex-col shrink-0 justify-between items-center gap-4 sm:gap-x-5 !min-w-12",
+          "text-primary bg-slate-100 rounded-xl px-2.5 sm:px-3 py-1.5 md:py-3 flex flex-row md:flex-col shrink-0 justify-between items-center gap-4 sm:gap-x-5 !min-w-11",
           className
         )}
       >
         <Button
           variant="link"
+          title="Increment"
+          aria-label="Increment button"
           className="px-0 py-0 hover:opacity-100"
           onClick={increment}
         >
-          <PlusIcon className="text-[12px] sm:text-sm fill-primary-300 hover:fill-primary duration-150" />
+          <PlusIcon
+            aria-hidden
+            className="text-[12px] sm:text-sm fill-primary-300 hover:fill-primary duration-150"
+          />
         </Button>
-        <span className="font-medium sm:text-xl mt-0.5">{optimisticCount}</span>
+        <span
+          aria-label="Counter value"
+          className="font-medium sm:text-lg mt-0.5"
+        >
+          {optimisticCount}
+        </span>
         <Button
           variant="link"
+          title="Decrement"
+          aria-label="Decrement button"
           className="px-0 py-0 opacity-60 hover:opacity-100 disabled:opacity-60 disabled:cursor-not-allowed"
           disabled={optimisticCount === 0}
           onClick={decrement}
         >
-          <MinusIcon className="text-[12px] sm:text-sm fill-primary-300 hover:fill-primary duration-150" />
+          <MinusIcon
+            aria-hidden
+            className="text-[12px] sm:text-sm fill-primary-300 hover:fill-primary duration-150"
+          />
         </Button>
       </div>
     );
