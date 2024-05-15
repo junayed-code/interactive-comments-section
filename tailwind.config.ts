@@ -15,7 +15,7 @@ const config: Config = {
         primary: {
           DEFAULT: "hsl(238, 40%, 52%)",
           "300": "hsl(239, 57%, 85%)",
-          "100": "hsl(239, 30%, 95%)",
+          "100": "hsl(234, 20%, 97%)",
         },
         danger: {
           DEFAULT: "hsl(358, 79%, 66%)",
